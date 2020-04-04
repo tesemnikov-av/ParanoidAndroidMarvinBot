@@ -1,10 +1,4 @@
-![Travis](https://img.shields.io/github/followers/tesemnikov-av?label=Follow)
-
-![Travis](https://img.shields.io/eclipse-marketplace/last-update/joyce-recomendation-bot)
-
-![contributors](https://img.shields.io/github/contributors/tesemnikov-av/pelevin-recomendation-bot)
-
-
+![followers](https://img.shields.io/github/followers/tesemnikov-av?label=Follow) ![commit-activity](https://img.shields.io/github/commit-activity/m/tesemnikov-av/pelevin-recomendation-bot) ![contributors](https://img.shields.io/github/contributors/tesemnikov-av/pelevin-recomendation-bot)
 
 pelevin-recomendation-bot
 =========================
