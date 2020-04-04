@@ -54,7 +54,7 @@ df = df[['original_title', 'director' , 'Screenplay', 'actor' , 'overview' ]]
 df['actor'] = df['actor'].map(lambda x: str(x).replace("'", " ").replace(',',' '))
 df['director'] = df['director'].map(lambda x: str(x).replace(" ", ""))
 df['Screenplay'] = df['Screenplay'].map(lambda x: str(x).replace(" ", ""))
-df['original_title'] =  df['original_title'].str.lower()
+df['original_title'] =  df['original_title'].str.capitalize()
 
 
 df['common'] = df[df.columns[1:-1]].apply(
