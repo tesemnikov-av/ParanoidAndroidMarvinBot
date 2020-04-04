@@ -1,4 +1,4 @@
-![followers](https://img.shields.io/github/followers/tesemnikov-av?label=Follow) ![commit-activity](https://img.shields.io/github/commit-activity/m/tesemnikov-av/pelevin-recomendation-bot) ![contributors](https://img.shields.io/github/contributors/tesemnikov-av/pelevin-recomendation-bot)
+![followers](https://img.shields.io/github/followers/tesemnikov-av?label=Follow) ![contributors](https://img.shields.io/github/contributors/tesemnikov-av/pelevin-recomendation-bot) ![last-commit](https://img.shields.io/github/last-commit/tesemnikov-av/Pelevin-recomendation-bot)
 
 pelevin-recomendation-bot
 =========================
