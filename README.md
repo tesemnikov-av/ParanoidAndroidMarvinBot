@@ -4,7 +4,9 @@
 
 pelevin-recomendation-bot
 ------------
+Try:
 
+    @PelevinRecomendationBot
 
 source dataset:
 https://www.kaggle.com/tmdb/tmdb-movie-metadata
