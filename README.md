@@ -5,12 +5,6 @@
 pelevin-recomendation-bot
 ------------
 
-~~~~~~~~~~~~
-Назовите боту фильм который Вам нравиться и он порекомендует вам другой языком Виктора Пелевина.
 
-Requires:
-
-- Python (>= 3.6)
-- NumPy (>= 1.13.3)
-- SciPy (>= 0.19.1)
-- joblib (>= 0.11)
+source dataset:
+https://www.kaggle.com/tmdb/tmdb-movie-metadata
