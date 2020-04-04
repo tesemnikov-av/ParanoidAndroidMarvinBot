@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import pandas as pd
 import telebot
 from docxtpl import DocxTemplate
-
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+df = pd.read_csv('movie.csv')
+
 tfidf = TfidfVectorizer(stop_words='english')
 tfidf_matrix = tfidf.fit_transform(df['common'])
 from sklearn.metrics.pairwise import linear_kernel
