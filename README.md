@@ -5,7 +5,7 @@
 pelevin-recomendation-bot
 ------------
 
-- Try in Telegram:
+Try:
 
     @PelevinRecomendationBot
 
