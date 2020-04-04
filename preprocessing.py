@@ -25,6 +25,12 @@ def get_screenplay(x):
             return i['name']
     return np.nan
 
+# def get_screenplay(x):
+#     for i in x:
+#         if i['job'] == 'Screenplay':
+#             return i['name']
+#     return np.nan
+
 def get_actor(x):
     b = []
     for i in x:
@@ -32,6 +38,10 @@ def get_actor(x):
         if a == 'name' and i['order'] in range(0,10):
           b.append(i['name'].replace(' ' , '').strip("'"))
     return(str(b).strip('[]'))
+
+#ef get_summarize(x):
+
+
 
 df['director'] = df['crew'].apply(get_director)
 df['actor'] = df['cast'].apply(get_actor)
@@ -44,11 +54,13 @@ df = df[['original_title', 'director' , 'Screenplay', 'actor' , 'overview' ]]
 df['actor'] = df['actor'].map(lambda x: str(x).replace("'", " ").replace(',',' '))
 df['director'] = df['director'].map(lambda x: str(x).replace(" ", ""))
 df['Screenplay'] = df['Screenplay'].map(lambda x: str(x).replace(" ", ""))
+df['original_title'] =  df['original_title'].str.lower()
 
 
 df['common'] = df[df.columns[1:-1]].apply(
     lambda x: ' '.join(x.dropna().astype(str)),
     axis=1
 )
+
 
 df.to_csv('movie.csv')
