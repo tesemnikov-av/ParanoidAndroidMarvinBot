@@ -35,9 +35,6 @@ bot = telebot.TeleBot('1175849304:AAFJDNgX66_NXfys1wZzWTz4feAxsPdmvoA')
 #keyboard1 = telebot.types.ReplyKeyboardMarkup()
 #keyboard1.row('Привет', 'Пока')
 
-
-
-
 @bot.message_handler(commands=['start'])
 def start_message(message):
     bot.send_message(message.chat.id, 'For find in Wikipedia \n Example: "wiki deaths" for full output or "w deaths" for short output' ) # , reply_markup=keyboard1)
