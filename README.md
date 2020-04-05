@@ -7,7 +7,9 @@ ParanoidAndroidMarvinBot
 
 Try:
 
-    @PelevinRecomendationBot
+https://t.me/ParanoidAndroidMarvinBot?start=666
+
+    @ParanoidAndroidMarvinBot
 
 source dataset:
 https://www.kaggle.com/tmdb/tmdb-movie-metadata
