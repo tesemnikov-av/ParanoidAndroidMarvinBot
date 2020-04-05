@@ -81,6 +81,6 @@ for ultag in soup.find_all('table', {'class': 'js-rum-hero'} ):
 
 # convert my list to Pandas DataFrame
 df = pd.DataFrame(b)
-df.to_csv('top250.csv', sep='#')
+df.to_csv('top250.csv', sep='#' , header=False)
 
 print(df)
