@@ -2,7 +2,7 @@
 
 ![watch](https://img.shields.io/github/watchers/tesemnikov-av/Pelevin-recomendation-bot?style=social) 
 
-pelevin-recomendation-bot
+ParanoidAndroidMarvinBot
 ------------
 
 Try:
