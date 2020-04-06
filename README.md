@@ -12,5 +12,9 @@ Try in Telegram:
 Used libraries:
 
  - Sklearn (tfidf)
+ - Nltk
+ - Pymorphy2
  - PyTorch
+ - Numpy
+ - Pandas
  
