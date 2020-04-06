@@ -5,11 +5,12 @@
 ParanoidAndroidMarvinBot
 ------------
 
-Try:
-
-https://t.me/ParanoidAndroidMarvinBot?start=666
+Try in Telegram:
 
     @ParanoidAndroidMarvinBot
 
-source dataset:
-https://www.kaggle.com/tmdb/tmdb-movie-metadata
+Used libraries:
+
+ - Sklearn (tfidf)
+ - PyTorch
+ 
