@@ -38,7 +38,7 @@ def get_info(url):
     for b in i.find_all('a'):
       #tmp.append((b.text))
       tmp.append(b.text)
-  info.append(tmp)
+  info.append(str(tmp).strip("[]").replace("'", ""))
     #info.append(str(tmp).strip('[]').replace("'", ""))
   tmp=[]
   for i in soup.find_all('a', {'class': 'popupBigImage'}):
@@ -47,6 +47,8 @@ def get_info(url):
       tmp.append((b['src']))
   info.append(str(tmp).strip('[]'))
   return info
+
+
 
 # сreate an empty list
 b = []
