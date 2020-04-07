@@ -48,8 +48,6 @@ def get_info(url):
   info.append(str(tmp).strip('[]'))
   return info
 
-
-
 # сreate an empty list
 b = []
 count=0
