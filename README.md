@@ -10,6 +10,8 @@ Try in Telegram:
 
     @ParanoidAndroidMarvinBot
 
+![Marvin](https://github.com/tesemnikov-av/files-rep/blob/master/marvin_logo.jpg)
+
 Если Марвину отправить название известного ему фильма (топ250 Кинопоиска), то он порекомендует Вам похожий.
 В названии фильма допускаются три опечатки (Расстояние Левенштейна ).
 В остальных случаях Марвин выбирает ответ на основе базы вопросов и ответов «Frequently Asked Questions».
