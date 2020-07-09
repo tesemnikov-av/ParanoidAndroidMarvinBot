@@ -28,7 +28,20 @@ Try in Telegram:
  - Numpy
  - Pandas
  
-	
+```python
+
+        elif command == 'Hi' or command == 'hi' or command == 'HI' or command == 'hI':     #Hi Query
+            replyMessage = "Hi "+ user + " "
+            greeting = "It is sleeping time you still awake"
+            hour = int(datetime.datetime.strftime(datetime.datetime.now(), '%H'))
+            #print(hour)
+            if(hour >= 4 and hour < 12):
+                greeting = "Good Morning"
+            elif(hour >= 12 and hour < 16):
+                greeting = "Good Afternoon"
+            elif(hour >= 16 and hour < 20):
+                greeting = "Good Evening"
+```
  
  run.py
  ------
