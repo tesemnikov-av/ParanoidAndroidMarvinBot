@@ -21,7 +21,7 @@ Try in Telegram:
 
 # Used libraries:
 
- - Sklearn (tfidf)
+ - Sklearn (Tf-Idf)
  - Nltk
  - Pymorphy2
  - PyTorch
