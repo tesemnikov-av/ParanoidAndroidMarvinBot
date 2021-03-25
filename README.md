@@ -2,8 +2,6 @@
 
 ![watch](https://img.shields.io/github/watchers/tesemnikov-av/Pelevin-recomendation-bot?style=social) 
 
-asfasf
-1ss2
 
 ParanoidAndroidMarvinBot
 ------------
