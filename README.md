@@ -28,7 +28,6 @@ Try in Telegram:
  - Sklearn (Tf-Idf)
  - Nltk
  - Pymorphy2
- - PyTorch
  - Numpy
  - Pandas
 
