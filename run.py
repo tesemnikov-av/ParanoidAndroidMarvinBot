@@ -1,96 +1,102 @@
-# -*- coding: utf-8 -*-
+from datetime import datetime
+import Levenshtein
 import pandas as pd
+import nltk 
+import numpy as np
+import re
+from nltk.stem import wordnet # to perform lemmitization
+from sklearn.feature_extraction.text import CountVectorizer # to perform bow
+from sklearn.feature_extraction.text import TfidfVectorizer # to perform tfidf
+from nltk import pos_tag # for parts of speech
+from sklearn.metrics import pairwise_distances # to perfrom cosine similarity
+from nltk import word_tokenize # to create tokens
+from nltk.corpus import stopwords # for stop words
 import telebot
-from docxtpl import DocxTemplate
-from sklearn.feature_extraction.text import TfidfVectorizer
-
-df = pd.read_csv('movie.csv')
-
-tfidf = TfidfVectorizer(stop_words='english')
-tfidf_matrix = tfidf.fit_transform(df['common'])
+import random
+import time
 from sklearn.metrics.pairwise import linear_kernel
-cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
-indices = pd.Series(df.index, index=df['original_title']).drop_duplicates()
+import pymorphy2
+import string
 
-def get_recommendations(title, cosine_sim=cosine_sim):
-    # Get the index of the movie that matches the title
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
+
+morph = pymorphy2.MorphAnalyzer()
+tfidf = TfidfVectorizer()
+
+LEV_DIST = 4
+
+bot = telebot.TeleBot('1171053774:AAEKARUcqloBdKpZyT9_g4jnIKDcOUJYOKU')
+
+def random_movie():
+  return df_top250['original_title'][random.randint(0,len(df_top250['original_title'])-1)]
+  
+def get_button():
+  keyboard1 = telebot.types.ReplyKeyboardMarkup(True, True)
+  return keyboard1.row(random_movie().capitalize(),random_movie().capitalize(),random_movie().capitalize())
+  del keyboard1
+
+def get_elem(elem):
+  return elem[random.randint(0, len(elem)-1)]
+
+def greating():
+  hour = int(datetime.strftime(datetime.now()  , '%H')) + 3
+
+  if(hour >= 4 and hour < 12):
+     greeting = "Доброе утро!"
+  elif (hour >= 12 and hour < 16):
+     greeting = "Добрый день!"
+  elif (hour >= 16 and hour < 23):
+     greeting = "Добрый вечер!"
+  return greeting
+
+def chat_tfidf(text):
+    lemma=tokenize_ru(text) # calling the function to perform text normalization
+    tf=tfidf.transform([lemma]).toarray() # applying tf-idf
+    cos=1-pairwise_distances(df_tfidf,tf,metric='cosine') # applying cosine similarity
+    index_value=cos.argmax() # getting index value 
+    return df_dialogs['Text Response'].loc[index_value]
+
+def get_recommendations(title, cosine_sim=cosine_sim_creators ):
     idx = indices[title]
 
-    # Get the pairwsie similarity scores of all movies with that movie
     sim_scores = list(enumerate(cosine_sim[idx]))
-
-    # Sort the movies based on the similarity scores
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-
-    # Get the scores of the 10 most similar movies
     sim_scores = sim_scores[1:11]
-
-    # Get the movie indices
     movie_indices = [i[0] for i in sim_scores]
+    a = df_top250['url'].iloc[movie_indices]
+    return str(a.values[random.randint(0,9)].capitalize())[1:-1] # a.values , sim_scores
 
-    # Return the top 10 most similar movies
-    return df['original_title'].iloc[movie_indices]
-
-bot = telebot.TeleBot('1175849304:AAFJDNgX66_NXfys1wZzWTz4feAxsPdmvoA')
-#keyboard1 = telebot.types.ReplyKeyboardMarkup()
-#keyboard1.row('Привет', 'Пока')
+def tokenize_ru(file_text):
+    tokens = word_tokenize(file_text)
+    tokens = [i for i in tokens if (i not in string.punctuation)]
+    tokens = [i for i in tokens if (i not in my_stop_words)]
+    tokens = [i.replace("«", "").replace("»", "") for i in tokens]
+    tokens = [ morph.parse(i)[0].normal_form for i in tokens ]
+    return str(tokens).strip('[]').replace("'","").replace(",","")
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    bot.send_message(message.chat.id, 'For find in Wikipedia \n Example: "wiki deaths" for full output or "w deaths" for short output' ) # , reply_markup=keyboard1)
+  bot.send_message(message.chat.id, greating() )
+  bot.send_sticker(message.chat.id, get_elem(stickers_ids) )
+  bot.send_message(message.chat.id, get_elem(questions) , parse_mode="markdown" , reply_markup=get_button() ) 
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
-    if message.text.lower().split(' ')[0] == 'rec':
-        #telebot.
-        #user = update.message.from_user
-        bot.send_message(message.chat.id,  str(get_recommendations('The Hateful Eight').values).strip('[]').replace("' '" , '\n').replace("'" , "").strip()     ) #    str(get_recommendations('The Hateful Eight')) )
-        #print('You talk with user {} and his user ID: {} '.format(user['username'], user['id']))
-    elif message.text.lower().split(' ')[0] == 'r':
-        bot.send_message(message.chat.id, str(get_recommendations(str(message.text.split(' ')[1]))))
-    elif message.text.lower().split(' ')[0] == 'w':
-        try:
-          content = str(wikipedia.summary(message.text.lower().split(' ')[1:]))
-          summary = summarize(content, split=True, word_count=50)
-        except BaseException as e:
-          summary = "Попробуй еще"
-        bot.send_message(message.chat.id, str(summary) )
-    elif message.text.lower().split(' ')[0] == 'wiki':
-        #content = str()
-        #summary = summarize(content, split=True, word_count=100)
-        try:
-          content = wikipedia.summary(message.text.split(' ')[1:])
-        except BaseException as e:
-          content = "Попробуй еще"        
-        bot.send_message(message.chat.id, content )
-    elif message.text.lower() == 'я тебя люблю':
-        bot.send_sticker(message.chat.id, 'CAADAgADZgkAAnlc4gmfCor5YbYYRAI')
-    elif message.text.lower().split(' ')[0] == 'пропуск':
-        try:
-          name = str(message.text.lower().split(' ')[1])
-          serial_number = str(message.text.lower().split(' ')[2])
-          ZNI = str(message.text.lower().split(' ')[3])
-          date = str(message.text.lower().split(' ')[4])
-          context = { 'NAME' : name , 'SERIAL_NUMPER' : serial_number, 'ZNI':ZNI, 'DATE':date}
-        
-          doc = DocxTemplate("Шаблон_python.docx")
-        
-          doc.render(context)
-          doc.save("внос_Сколково_" + date + ".docx")
-        #files.download('шаблон-final.docx')
-          docum = open("внос_Сколково_" + date + ".docx", 'rb')
-        #docum = open('sample_data/README.md', encoding="utf-8")
-          bot.send_document(message.chat.id,docum  )
-          bot.send_message(message.chat.id, 'Лови файл')
-        except BaseException as e:
-          bot.send_message(message.chat.id, 'пример: пропуск VRM 00FF540 --- 23.03.2020')
-    else : 
-        #bot.send_sticker(message.chat.id, 'CAADAgADZgkAAnlc4gmfCor5YbYYRAI')
-        bot.send_message(message.chat.id, 'пример: пропуск VRM 00FF540 --- 23.03.2020')
+    recomended = False
 
+    for film in list(df_top250['original_title_lower']):
+      ldis = Levenshtein.distance(message.text.lower(), film)
+      if ldis < LEV_DIST:
+        recomended = True
+        bot.send_photo(message.chat.id, get_recommendations(str(film)))
+       
+    if recomended != True:
+   
+        bot.send_message(message.chat.id, chat_tfidf(message.text.lower()) , reply_markup=get_button())
 
-@bot.message_handler(content_types=['sticker'])
-def sticker_id(message):
-    print(message)
+        if bool(random.choices([True, False], weights=[40, 60])[0]):
+          bot.send_sticker(message.chat.id, get_elem(stickers_ids) )
 
 bot.polling()
+
