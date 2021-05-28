@@ -19,6 +19,15 @@ Try in Telegram:
 Для каждого заданного вопроса расчитывается косинусное растояние и выбирается ответ с максимальным сходством.
 Если сходство ниже определенного предела Марвин не отвечает.
 
+В Маске            |  Без маски
+:-------------------------:|:-------------------------:
+![Yes](https://github.com/tesemnikov-av/files-rep/blob/master/marvin1.jpg)  |  ![No](https://github.com/tesemnikov-av/files-rep/blob/master/marvin2.jpg)
+
+
+
+
+
+
 # Used libraries:
 
  - Sklearn (Tf-Idf)
